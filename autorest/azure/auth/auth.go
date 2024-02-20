@@ -526,6 +526,18 @@ func NewClientCredentialsConfig(clientID string, clientSecret string, tenantID s
 	}
 }
 
+// NewClientCredentialsConfig creates an AuthorizerConfig object configured to obtain an Authorizer through Client Credentials.
+// This section caters to the US Government config of Azure GovCloud.
+func NewUSClientCredentialsConfig(clientID string, clientSecret string, tenantID string) ClientCredentialsConfig {
+	return ClientCredentialsConfig{
+		ClientID:     clientID,
+		ClientSecret: clientSecret,
+		TenantID:     tenantID,
+		Resource:     azure.USGovernmentCloud.ResourceManagerEndpoint,
+		AADEndpoint:  azure.USGovernmentCloud.ActiveDirectoryEndpoint,
+	}
+}
+
 // NewClientCertificateConfig creates a ClientCertificateConfig object configured to obtain an Authorizer through client certificate.
 // Defaults to Public Cloud and Resource Manager Endpoint.
 func NewClientCertificateConfig(certificatePath string, certificatePassword string, clientID string, tenantID string) ClientCertificateConfig {
